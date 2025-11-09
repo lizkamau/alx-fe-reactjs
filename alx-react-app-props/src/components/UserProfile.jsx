@@ -1,12 +1,16 @@
-const UserProfile = (props) => {
-   return (
-     <div>
-       <h2>{props.name}</h2>
-       <p>Age: {props.age}</p>
-       <p>Bio: {props.bio}</p>
-     </div>
-   );
- };
+import { useContext } from "react"; // ✅ Import useContext from React
+import UserContext from "../UserContext"; // ✅ Import the context
 
+function UserProfile() {
+  // ✅ Access shared data from the context
+  const userData = useContext(UserContext);
 
- export default UserProfile;
+  return (
+    <div>
+      <p>Name: {userData.name}</p>
+      <p>Email: {userData.email}</p>
+    </div>
+  );
+}
+
+export default UserProfile;
