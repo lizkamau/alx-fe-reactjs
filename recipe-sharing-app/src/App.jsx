@@ -4,8 +4,20 @@ import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import SearchBar from "./components/SearchBar";
+import FavoritesList from "./components/FavoritesList";
+import RecommendationsList from "./components/RecommendationsList";
+import { useRecipeStore } from "./components/recipeStore";
+import { useEffect } from "react";
 
 function App() {
+  const generateRecommendations = useRecipeStore(
+    (state) => state.generateRecommendations
+  );
+
+  useEffect(() => {
+    generateRecommendations(); // update recommendations on load
+  }, [generateRecommendations]);
+
   return (
     <Router>
       <div style={{ padding: "20px" }}>
@@ -19,6 +31,8 @@ function App() {
                 <SearchBar />
                 <AddRecipeForm />
                 <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
               </>
             }
           />
