@@ -1,26 +1,22 @@
-// src/services/github.js
+// src/services/githubService.js
 import axios from "axios";
 
-// Access the API key from the environment variable
 const GITHUB_API_KEY = import.meta.env.VITE_APP_GITHUB_API_KEY;
 
-// Create an Axios instance for GitHub API requests
 const githubApi = axios.create({
   baseURL: "https://api.github.com",
   headers: {
-    Authorization: `token ${GITHUB_API_KEY}`, // <-- here we use it
+    Authorization: GITHUB_API_KEY ? `token ${GITHUB_API_KEY}` : undefined,
   },
 });
 
-// Example function to get a GitHub user by username
-export const getUser = async (username) => {
+// Function to fetch user data
+export const fetchUserData = async (username) => {
   try {
     const response = await githubApi.get(`/users/${username}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching GitHub user:", error);
+    console.error("GitHub API error:", error);
     return null;
   }
 };
-
-export default githubApi;
