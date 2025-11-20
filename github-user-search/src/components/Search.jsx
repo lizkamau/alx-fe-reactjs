@@ -3,13 +3,13 @@ import { useState } from "react";
 import { fetchUserData } from "../services/githubService";
 
 const Search = () => {
-  const [username, setUsername] = useState(""); // useState
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // preventDefault
+    e.preventDefault();
     if (!username) return;
 
     setLoading(true);
@@ -17,8 +17,11 @@ const Search = () => {
     setUser(null);
 
     const data = await fetchUserData(username);
-    if (data) setUser(data);
-    else setError("Looks like we can't find the user.");
+    if (data) {
+      setUser(data);
+    } else {
+      setError("Looks like we cant find the user"); // <-- exact message
+    }
 
     setLoading(false);
   };
@@ -26,19 +29,16 @@ const Search = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {" "}
-        {/* form + onSubmit */}
         <input
           type="text"
           value={username}
-          onChange={(e) => setUsername(e.target.value)} // target.value
+          onChange={(e) => setUsername(e.target.value)}
           placeholder="Enter GitHub username"
         />
-        <button type="submit">Search</button> {/* button */}
+        <button type="submit">Search</button>
       </form>
-
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* error message displayed */}
       {user && (
         <div>
           <img src={user.avatar_url} alt={user.login} width={100} />
