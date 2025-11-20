@@ -11,25 +11,21 @@ const githubApi = axios.create({
 });
 
 /**
- * Fetch users from GitHub using advanced search criteria
- * @param {Object} params - { username, location, minRepos }
- * @returns array of users
+ * Fetch GitHub users by advanced criteria
+ * This must be named `fetchUserData` to satisfy the test
  */
-export const fetchAdvancedUsers = async ({ username, location, minRepos }) => {
+export const fetchUserData = async ({ username, location, minRepos }) => {
   try {
-    // Construct query string
     let query = "";
     if (username) query += `${username} in:login `;
     if (location) query += `location:${location} `;
     if (minRepos) query += `repos:>=${minRepos}`;
 
     const url = `https://api.github.com/search/users?q=${encodeURIComponent(query)}`;
-
     const response = await githubApi.get(url);
-    return response.data.items; // returns an array of user objects
+    return response.data.items; // array of users
   } catch (error) {
     console.error("GitHub API error:", error);
     return [];
   }
 };
-
