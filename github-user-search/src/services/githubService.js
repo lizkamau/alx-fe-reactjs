@@ -10,18 +10,13 @@ const githubApi = axios.create({
   },
 });
 
-// Advanced search function
-export const fetchAdvancedUsers = async ({ username, location, minRepos }) => {
+// Fetch multiple users using GitHub search
+export const fetchUsers = async (username) => {
   try {
-    let query = "";
-    if (username) query += `${username} in:login `;
-    if (location) query += `location:${location} `;
-    if (minRepos) query += `repos:>=${minRepos}`;
-
-    const response = await githubApi.get(`/search/users?q=${encodeURIComponent(query)}`);
-    return response.data; // GitHub returns { items: [...] }
+    const response = await githubApi.get(`/search/users?q=${encodeURIComponent(username)}`);
+    return response.data.items; // returns an array of users
   } catch (error) {
     console.error("GitHub API error:", error);
-    return { items: [] };
+    return [];
   }
 };
