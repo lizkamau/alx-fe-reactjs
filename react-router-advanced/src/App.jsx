@@ -1,15 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Profile from "./components/Profile";
+import Profile from "./pages/Profile";
 import ProfileDetails from "./pages/ProfileDetails";
 import ProfileSettings from "./pages/ProfileSettings";
-import Post from "./pages/Post";
+import BlogPost from "./pages/BlogPost";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Home page */}
         <Route path="/" element={<Home />} />
 
         {/* Profile with nested routes */}
@@ -18,8 +17,8 @@ function App() {
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
 
-        {/* Dynamic Post route */}
-        <Route path="/posts/:postId" element={<Post />} />
+        {/* Dynamic Blog Post route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </BrowserRouter>
   );
